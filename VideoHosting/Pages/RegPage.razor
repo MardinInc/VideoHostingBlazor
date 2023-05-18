@@ -1,0 +1,134 @@
+﻿@page "/regpage"
+@inject NavigationManager NavigationManager
+@inject VideoHosting.Services.MongoConnection mongoConnection
+
+<style>
+    .signatures {
+        font-size: 65%;
+    }
+
+    input[type="date"] {
+        width: 100%;
+    }
+
+    .reg {
+        background: #ffcc00;
+        width: 100%
+    }
+
+    .log {
+        width: 49%;
+        background: #e8e8e8;
+    }
+</style>
+
+<div style="background-color:#f3f3f2; width:100%; height: 100%; display: flex; align-items: center; justify-content: center; height: 92vh;">
+    <table>
+        <tr>
+            <th>
+                <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" style="width:50%; height: 50%; float:right" class="avatar">
+            </th>
+            <th>
+                <div>
+                    <div style="margin: 4% 70% 4% 10%;background-color:white; ">
+                        <table>
+                            <tr>
+                                <th>
+                                    <font class="signatures">Имя</font>
+                                    <input type="text" size="40" name="name" @oninput="@(e => name = e.Value.ToString())">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <font class="signatures">Фамилия</font>
+                                    <input type="text" size="40" name="surname" @oninput="@(e => surname = e.Value.ToString())">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <font class="signatures">Отчество</font>
+                                    <input type="text" size="40" name="patronymic" @oninput="@(e => patronymic = e.Value.ToString())">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <font class="signatures">E-Mail</font>
+                                    <input type="email" size="40" name="email" @oninput="@(e => email = e.Value.ToString())">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <font class="signatures">Дата рождения</font>
+                                    <input type="date" size="40" width="9px" name="datebirthday" @oninput="@(e => datebirthday = e.Value.ToString())">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <font class="signatures">Пароль</font>
+                                    <input type="password" size="40" name="passwordone" @oninput="@(e => passwordOne = e.Value.ToString())">
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    <font class="signatures">Пароль</font>
+                                    <input type="password" size="40" name="passwordtwo" @oninput="@(e => passwordTwo = e.Value.ToString())">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <a @onclick="() => NavigateToLogin()" class="signatures"> Уже есть аккаунт?</a>
+                                    <input type="button" class="reg" value="Регистрация" @onclick="() => NavigateToReg()" />
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
+
+</div>
+@code {
+    
+    string name = "";
+    string surname = "";
+    string patronymic = "";
+    string email = "";
+    string datebirthday = "";
+    string passwordOne = "";
+    string passwordTwo = "";
+    string message = "";
+
+
+    private void NavigateToLogin()
+    {
+        NavigationManager.NavigateTo($"/loginpage");
+    }
+    private void NavigateToReg()
+    {
+        if (name != "" || surname != "" || email != "" || datebirthday != "" || passwordOne != "" || passwordTwo != "")
+        {
+            if (passwordOne == passwordTwo)
+            {
+                mongoConnection.AddUserToDataBase(new Data.User()
+                    {
+                        Firstname = name,
+                        Lastname = surname,
+                        Patronymic = patronymic,
+                        Email = email,
+                        DateBirthday = datebirthday,
+                        Password = passwordOne
+                    });
+            }
+            else
+            {
+                message = "Пароли не совпадают";
+            }
+        }
+        else
+        {
+            message = "Заполните все поля";
+        }
+    }
+}

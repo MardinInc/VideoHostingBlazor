@@ -1,0 +1,57 @@
+﻿@inject NavigationManager NavigationManager
+<style>
+    .navbarup {
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        z-index: 9999;
+    }
+
+    .links a {
+        display: inline-block;
+        margin-right: 20px;
+        font-size: 10%;
+    }
+</style>
+<nav class="navbarup" style="background-color:#ffcc00; width: 100%; height: 7%">
+
+    <div class="links" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <a class="nav-link active" aria-current="page" href="#" style="color:black">Главная</a>
+        <a class="nav-link" href="#">Плейлисты</a>
+        <a class="nav-link" href="#">Темы</a>
+    </div>
+
+    <div style="position: absolute; top: 50%; left: 90%; transform: translate(-50%, -50%);">
+        @if (true)
+        {
+            <a style="font-size: 75%" @onclick="() => NavigateToLogin()">Войти</a>
+            <a href="/personal-info">
+                <IconButton>
+                    <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" class="avatar" style="height: 30px; width: 30px">
+                </IconButton>
+            </a>
+        }
+    </div>
+</nav>
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+    private void NavigateToLogin()
+    {
+        NavigationManager.NavigateTo($"/loginpage");
+    }
+}

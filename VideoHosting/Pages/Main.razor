@@ -1,0 +1,125 @@
+﻿@page "/"
+@using VideoHosting.Data;
+@using System.ComponentModel.DataAnnotations;
+@inject Services.MongoConnection mongoConnection;
+@inject NavigationManager NavigationManager
+<PageTitle>Index</PageTitle>
+
+
+
+<div style="padding:2%">
+    <table>
+        @for (int j = 0; j < 1; j++)
+        {
+            @for (int i = 0; i < 30; i += 5)
+            {
+                int index = i;
+                <tr>
+                    <th colspan="3"><a href="https://www.youtube.com/"><img src="https://look.com.ua/pic/201209/1920x1080/look.com.ua-5032.jpg" /></a></th>
+                    <th colspan="3"><a href="https://www.youtube.com/"><img src="https://look.com.ua/pic/201209/1920x1080/look.com.ua-5032.jpg" /></a></th>
+                    <th colspan="3"><a href="https://www.youtube.com/"><img src="https://look.com.ua/pic/201209/1920x1080/look.com.ua-5032.jpg" /></a></th>
+                    <th colspan="3"><a href="https://www.youtube.com/"><img src="https://look.com.ua/pic/201209/1920x1080/look.com.ua-5032.jpg" /></a></th>
+                </tr>
+                <tr>
+                    <th rowspan="3">
+                        <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" class="avatar" @onclick="() => NavigateToPersonalPage()">
+                    </th>
+                    <th colspan="2">
+                        <a @onclick="() => NavigateToAnswer(videos[index].Title)">@videos[i].Title</a>
+                    </th>
+                    <th rowspan="3">
+                        <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" class="avatar" @onclick="() => NavigateToPersonalPage()">
+                    </th>
+                    <th colspan="2">
+                        <a @onclick="() => NavigateToAnswer(videos[index+1].Title)">@videos[i+1].Title</a>
+                    </th>
+                    <th rowspan="3">
+                        <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" class="avatar" @onclick="() => NavigateToPersonalPage()">
+                    </th>
+                    <th colspan="2">
+                        <a @onclick="() => NavigateToAnswer(videos[index+2].Title)">@videos[i+2].Title</a>
+                    </th>
+                    <th rowspan="3">
+                        <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" class="avatar" @onclick="() => NavigateToPersonalPage()">
+                    </th>
+                    <th colspan="2">
+                        <a @onclick="() => NavigateToAnswer(videos[index+3].Title)">@videos[i+3].Title</a>
+                    </th>
+
+                </tr>
+                <tr>
+                    <th colspan="2">автор + @i</th>
+
+                    <th colspan="2">автор + @i</th>
+
+                    <th colspan="2">автор + @i</th>
+
+                    <th colspan="2">автор + @i</th>
+
+                </tr>
+                <tr>
+                    <th>просмотры</th>
+                    <th>дата</th>
+                    <th>просмотры</th>
+                    <th>дата</th>
+                    <th>просмотры</th>
+                    <th>дата</th>
+                    <th>просмотры</th>
+                    <th>дата</th>
+                </tr>
+            }
+        }
+    </table>
+
+</div>
+
+
+
+@code {
+    public List<Video> videos = new List<Video>
+    {
+        new Video("Зеленая миля", "2", "3"),
+        new Video("Побег из Шоушенка", "1", "3"),
+        new Video("Форрест Гамп", "3", "1"),
+        new Video("Заводной апельсин", "1", "4"),
+        new Video("Назад в будущее", "2", "1"),
+        new Video("Одержимость", "4", "2"),
+        new Video("Темный рыцарь", "3", "1"),
+        new Video("Хатико: Самый верный друг", "4", "3"),
+        new Video("Крестный отец", "1", "3"),
+        new Video("Терминатор 2: Судный день", "2", "1"),
+        new Video("Игры разума", "3", "4"),
+        new Video("Криминальное чтиво", "1", "2"),
+        new Video("Красота по-американски", "4", "3"),
+        new Video("Храброе сердце", "2", "1"),
+        new Video("Достучаться до небес", "3", "4"),
+        new Video("Матрица", "1", "2"),
+        new Video("Леон", "2", "4"),
+        new Video("Один дома", "4", "3"),
+        new Video("Звездные войны: Эпизод IV – Новая надежда", "1", "3"),
+        new Video("Красный дракон", "2", "1"),
+        new Video("Гладиатор", "3", "2"),
+        new Video("Унесенные ветром", "4", "1"),
+        new Video("Убить Билла", "1", "4"),
+        new Video("Начало", "2", "3"),
+        new Video("Амели", "4", "2"),
+        new Video("Джентльмены удачи", "3", "1"),
+        new Video("Человек дождя", "1", "2"),
+        new Video("Поймай меня, если сможешь", "2", "4"),
+        new Video("Безумный Макс: Дорога ярости", "3", "1"),
+        new Video("Укрощение строптивого", "4", "2"),
+        new Video("Интерстеллар", "3", "2"),
+        new Video("Остаться в живых", "4", "1"),
+        new Video("Гарри Поттер и философский камень", "1", "3"),
+        new Video("Железный человек", "2", "4"),
+        new Video("Охотники за привидениями", "4", "3")
+    };
+    private void NavigateToAnswer(string select)
+    {
+        NavigationManager.NavigateTo($"/watchvideo/{select}");
+    }
+    private void NavigateToPersonalPage()
+    {
+        NavigationManager.NavigateTo($"/personalpage");
+    }
+}

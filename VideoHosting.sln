@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoHosting", "VideoHosting\VideoHosting.csproj", "{449EAFE2-26DF-4F49-93C4-2A746A637659}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{449EAFE2-26DF-4F49-93C4-2A746A637659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{449EAFE2-26DF-4F49-93C4-2A746A637659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{449EAFE2-26DF-4F49-93C4-2A746A637659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{449EAFE2-26DF-4F49-93C4-2A746A637659}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CD5B01B-C3AC-4BDD-A168-45C80DFB4CE1}
+	EndGlobalSection
+EndGlobal

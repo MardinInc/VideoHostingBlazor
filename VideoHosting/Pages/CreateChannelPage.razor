@@ -1,0 +1,111 @@
+﻿@page "/createchannelpage"
+@inject NavigationManager NavigationManager
+<style>
+    .signatures {
+        font-size: 65%;
+    }
+
+    input[type="date"] {
+        width: 100%;
+    }
+
+    .reg {
+        background: #e8e8e8;
+        width: 49%
+    }
+
+    .log {
+        width: 49%;
+        background: #ffcc00;
+    }
+    select{
+        width: 100%;
+    }
+</style>
+
+<body style="background-color:#f3f3f2; width:100%; height: 100%; vertical-align:middle">
+    <table>
+        <tr>
+            <th>
+                <img src="https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png" alt="Avatar" style="width:50%; height: 50%; float:right" class="avatar">
+            </th>
+            <th>
+                <div>
+                    <div style="margin: 4% 70% 4% 10%;background-color:white">
+                        <table>
+                            <tr>
+                                <th colspan="2">
+                                    @if (imageData != null)
+                                    {
+                                        <img src="@($"data:image/png;base64,{Convert.ToBase64String(imageData)}")" style="width:100px; height:100px"  />
+                                    }
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    <InputFile OnChange="HandleSelection" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    <font class="signatures">Название канала</font>
+                                    <input type="text" size="40">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    <font class="signatures">Описание</font>
+                                    <input type="text" size="40">
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="2">
+                                    <font class="signatures">Тип канала</font>
+                                    <select id="channel-type" name="channel-type">
+                                        <option value="1">Новости</option>
+                                        <option value="2">Развлекательные</option>
+                                        <option value="3">Образовательные</option>
+                                        <option value="4">Спортивные</option>
+                                    </select>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <input type="button" class="reg" value="Отмена" @onclick="() => NavigateToMain()" />
+                                    <input type="button" class="log" value="Создать" @onclick="() => NavigateToChannel()" />
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
+
+</body>
+@code {
+
+    private string imageUrl = "https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette.png";
+
+    private void NavigateToChannel()
+    {
+        NavigationManager.NavigateTo($"/personalpage");
+    }
+    private void NavigateToMain()
+    {
+        NavigationManager.NavigateTo($"/mainpage");
+    }
+    private byte[] imageData;
+
+    private async Task HandleSelection(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+
+        using (var stream = new MemoryStream())
+        {
+            await imageFile.OpenReadStream().CopyToAsync(stream);
+            imageData = stream.ToArray();
+        }
+    }
+}
